@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Project.Service.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<CarsDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CarsConnectionString")));
 
 var app = builder.Build();
 
