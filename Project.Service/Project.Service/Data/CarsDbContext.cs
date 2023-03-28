@@ -10,6 +10,14 @@ namespace Project.Service.Data
        }
 
         public virtual DbSet<VehicleMake> VehicleMakes { get; set; } 
-        public virtual DbSet<VehicleModel> VehicleModels { get; set; } 
+        public virtual DbSet<VehicleModel> VehicleModels { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<VehicleModel>()
+                        .HasOne<VehicleMake>(m => m.VMake)
+                        .WithMany(m => m.Models)
+                        .HasForeignKey(m => m.VehicleMakeId);
+        }
     }
 }
